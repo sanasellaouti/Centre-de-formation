@@ -49,8 +49,8 @@ class GestionFormation():
         
         #Fonction d'ajout d'une formation (sera appelée dérière le boutton "Ajouter"
     def add(self):
-        F = Formation(int(self.id_formation.get()),self.libellé.get(),self.responsable.get(),self.filière.get(),int(self.durée.get()))
-        print("Formation: ",A.libellé)
+        F = Formation(int(self.id_formation.get()),self.libellé.get(),self.responsable.get(),int(self.durée.get()))
+        print("Formation: ",F.libellé)
         F.ajouterFormation()
 
     def view(self):

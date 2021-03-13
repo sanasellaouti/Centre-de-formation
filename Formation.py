@@ -53,15 +53,12 @@ class Formation:
         self.db.commit()
         print(self.mycursor.rowcount,"updtate FAIS AVEC SUCCES")
         
+    def chercherFormation(self,id_formation):
+        sql = "SELECT * FROM Formation WHERE id_formation = %s"
+        val = (id_formation,)
+        self.mycursor.execute(sql,val)
+        result = self.mycursor.fetchall()  
+        return result
 
-#f=Formation(123,"BI","Ameni Amri",6)
-#f.ajouterFormation()
-#f.afficherFormations()
-#print("avant suppression.....")
-#f.afficherFormations()
-#f.supprimerFormation(11)
-#print("après suppression.....")
-#f.afficherFormations()
-#f.modifierFormation(8)
-#f.afficherFormations()
+
         

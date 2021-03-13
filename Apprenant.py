@@ -49,16 +49,11 @@ class Apprenant:
         self.mycursor.execute(sql,val)
         self.db.commit()
         print(self.mycursor.rowcount,"Apprenant bien modifié")
+        
+    def chercherApprenant(self,CIN):
+        sql = "SELECT * FROM Apprenant WHERE CIN = %s"
+        val = (CIN,)
+        self.mycursor.execute(sql,val)
+        result = self.mycursor.fetchall()  
+        return result
 
-
-
-#a = Apprenant(22422,21345,"Ali Ahmed","BI",2211234,"ahmed@gmail.com")
-#a.ajouterApprenant()
-#a.afficherApprenants()
-#print("avant suppression.....")
-#a.afficherApprenants()
-#a.supprimerApprenant(2)
-#print("après suppression.....")
-#a.afficherApprenants()
-#a.modifierApprenant(242)
-#a.afficherApprenants()

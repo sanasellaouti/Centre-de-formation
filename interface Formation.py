@@ -46,6 +46,9 @@ class GestionFormation():
         #=====================Boutton modification à ajouter après boutton "Suprimmer" dans __init()__
         a = Button(self.root,text = "Modifier",command = self.update,anchor='c')
         a.grid(row = 3,column = 3,ipady = 4,ipadx = 13,pady = 40)
+         #=====================Boutton chercher à ajouter après boutton "modifier" dans __init()__
+        a = Button(self.root,text = "Chercher",command = self.chercher,anchor='c')
+        a.grid(row = 4,column = 2,ipady = 4,ipadx = 13,pady = 40)
         
         #Fonction d'ajout d'une formation (sera appelée dérière le boutton "Ajouter"
     def add(self):
@@ -57,10 +60,10 @@ class GestionFormation():
         #==========================Show Frame
         self.root=Tk()
         self.root.geometry('700x300')
-        self.root.title("Gestion des apprenants")
+        self.root.title("Gestion des formations")
         show_frame = Frame(self.root)
         show_frame.place(width = 800,x = 0,y = 0 ,height = 300)
-        labl_show = Label(show_frame,text = "Affichage des apprenants")
+        labl_show = Label(show_frame,text = "Affichage des formations")
         labl_show.pack()
         #========================Main Frame
         main_frame = Frame(self.root,bd = 10,relief = SUNKEN)
@@ -79,7 +82,7 @@ class GestionFormation():
         tree.heading("#0",text = "Id",anchor='c')
         tree.heading("1",text = "Id_formation",anchor='c')
         tree.heading("2",text = "Libellé",anchor='c')
-        tree.heading("3",text = "Ronsponsable",anchor='w')
+        tree.heading("3",text = "Responsable",anchor='w')
         tree.heading("4",text = "Durée",anchor='w')
         F=Formation()
         rows=F.afficherFormations()
@@ -95,6 +98,40 @@ class GestionFormation():
     def update(self):
         F = Formation(self.id_formation.get(),self.libellé.get(),self.responsable.get(),self.durée.get())
         F.modifierFormation(self.id_formation.get())
+    def chercher(self):
+        #==========================Show Frame
+        self.root=Tk()
+        self.root.geometry('700x300')
+        self.root.title("Gestion des formations")
+        show_frame = Frame(self.root)
+        show_frame.place(width = 800,x = 0,y = 0 ,height = 300)
+        labl_show = Label(show_frame,text = "Recherche des formations")
+        labl_show.pack()
+        #========================Main Frame
+        main_frame = Frame(self.root,bd = 10,relief = SUNKEN)
+        main_frame.place(width = 600,height = 200,x = 8,y = 58)
+        tree = ttk.Treeview(main_frame,height = 200)
+        vsb = ttk.Scrollbar(main_frame,command = tree.yview,orient = "vertical")
+        tree.configure(yscroll = vsb.set)
+        vsb.pack(side = RIGHT,fill = Y)
+        tree.pack(side = TOP,fill = X)
+        tree['columns'] = ("1","2","3","4")
+        tree.column('#0',width=50)
+        tree.column('1',width=80)
+        tree.column('2',width=80)
+        tree.column('3',width=80)
+        tree.column('4',width=80)
+        tree.heading("#0",text = "Id",anchor='c')
+        tree.heading("1",text = "Id_formation",anchor='c')
+        tree.heading("2",text = "Libellé",anchor='c')
+        tree.heading("3",text = "Responsable",anchor='w')
+        tree.heading("4",text = "Durée",anchor='w')
+        F = Formation()
+        rows=F.chercherFormation(self.id_formation.get())
+        j=1
+        for i in rows:
+            tree.insert("","end",text=str(j), values = (f'{i[0]}',f'{i[1]}',f'{i[2]}',f'{i[3]}'))
+            j+=1
 
 
 root = Tk()

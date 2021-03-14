@@ -56,7 +56,7 @@ class PrincipalApp(tk.Tk):
             db_cursor.execute("create table if not exists certifications(idcertifications INT(10) NOT NULL PRIMARY KEY AUTO_INCREMENT,idsalles INT(15),libelle VARCHAR(45),description LONTEXT,organisation VARCHAR(20),examen DATE")
             db_connection.commit() 
             # creating required tables for sana
-            db_cursor.execute("create table if not exists apprenants(id_apprenant INT(10) NOT NULL PRIMARY KEY AUTO_INCREMENT,CIN INT(15),nom_prénomVARCHAR(45),filière VARCHAR(45),téléphone INT(20),email VARCHAR(30)")  
+            db_cursor.execute("create table if not exists apprenants(id_apprenant INT(10) NOT NULL PRIMARY KEY AUTO_INCREMENT,CIN INT(15),nom_prénom VARCHAR(45),filière VARCHAR(45),téléphone INT(20),email VARCHAR(30)")  
             db_connection.commit()
             db_cursor.execute("create table if not exists formations(id_formation INT(10) NOT NULL PRIMARY KEY AUTO_INCREMENT,libellé VARCHAR(45),responsalble VARCHAR(20),durée INT(15)")
             db_connection.commit()

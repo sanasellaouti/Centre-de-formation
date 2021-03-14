@@ -105,6 +105,8 @@ class CertificationApp(tk.Tk):
         self.tvStudent.place(x=40, y=310, height=200, width=640)  
        # self.create_table()  
         self.afficher_formateur()  
+        
+ 
     def clear_form(self):  
         self.entLibelle.delete(0, tk.END)  
         self.entOrganisation.delete(0, tk.END)  

@@ -20,7 +20,7 @@ password="maissa2021")
 # creating database_cursor to perform SQL operation  
 db_cursor = db_connection.cursor(buffered=True) # "buffered=True".makes db_cursor.row_count return actual number of records selected otherwise would return -1  
 """
-class FormateurApp(tk.Tk):  
+class CertificationApp(tk.Tk):  
     def __init__(self):  
         super().__init__()  
         self.title("Gestion Des Certifications")  
@@ -242,5 +242,5 @@ class FormateurApp(tk.Tk):
                 self.tvStudent.insert("", 'end', text=RollNo, values=(RollNo, Libelle,Organisation, Description,Salle,Examen))  
 
 if __name__ == "__main__":  
-    app = FormateurApp()  
+    app = CertificationApp()  
     app.mainloop()   

@@ -16,6 +16,7 @@ from tkcalendar import Calendar, DateEntry
 import tkinter as tk  
 import tkinter.messagebox as mb  
 import tkinter.ttk as ttk  
+from tkinter import *
 ## Connecting to the database  
 ## importing 'mysql.connector' for connection to mysql database  
 import mysql.connector  
@@ -50,7 +51,9 @@ class FormateurApp(tk.Tk):
         self.entEmail = tk.Entry(self)  
          
         #self.entDOB = tk.Entry(self)  
-        self.entSearch = tk.Entry(self)  
+        self.entSearch = tk.Entry(self) 
+        self.btn_email = tk.Button(self, text="Email", font=("Helvetica", 11), bg="yellow", fg="blue",  
+        command=self.send_message)
         self.btn_register = tk.Button(self, text="Register", font=("Helvetica", 11), bg="yellow", fg="blue",  
         command=self.ajouter_formateur)  
         self.btn_update = tk.Button(self,text="Update",font=("Helvetica",11),bg="yellow", fg="blue",
@@ -100,7 +103,8 @@ class FormateurApp(tk.Tk):
         self.entCity.place(x=277, y=158, height=21, width=186)  
         self.entEmail.place(x=278, y=188, height=21, width=186)  
         self.entSearch.place(x=310, y=560, height=21, width=186)  
-        self.btn_register.place(x=290, y=245, height=25, width=76)  
+        self.btn_email.place(x=500, y=188, height=25, width=76)
+        self.btn_register.place(x=280, y=245, height=25, width=76)  
         self.btn_update.place(x=370, y=245, height=25, width=76)  
         self.btn_delete.place(x=460, y=245, height=25, width=76)  
         self.btn_clear.place(x=548, y=245, height=25, width=76)  
@@ -109,7 +113,29 @@ class FormateurApp(tk.Tk):
         self.btn_exit.place(x=320, y=610, height=31, width=60)  
         self.tvStudent.place(x=40, y=310, height=200, width=640)  
        # self.create_table()  
-        self.afficher_formateur()  
+        self.afficher_formateur() 
+    def send(self):
+        print("hello")
+    def send_message(self):
+        newWindow = Toplevel(self) 
+        newWindow.title("Envoyer Email") 
+        newWindow.geometry("500x500") 
+        address_field = Label(newWindow,text="Adresse Destinataire :")
+        email_body_field = Label(newWindow,text="Message :")
+        address_field.place(x=15,y=70)
+        email_body_field.place(x=15,y=140) 
+        address = StringVar()
+        email_body = StringVar()
+        
+        address_entry = Entry(newWindow,textvariable=address,width="30")
+        email_body_entry = Text(newWindow,width=30,height=10)
+        address_entry.place(x=15,y=100)
+        address_entry.insert(0, self.entEmail.get())
+        email_body_entry.place(x=15,y=180)
+        button = Button(newWindow,text="Send Message",font=("Helvetica", 16), bg="yellow", fg="blue",command=self.send)
+        button.place(x=15,y=400)
+        
+  
     def clear_form(self):  
         self.entFName.delete(0, tk.END)  
         self.entLName.delete(0, tk.END)  
@@ -221,7 +247,7 @@ class FormateurApp(tk.Tk):
               
             print( roll_no) 
             f=Formateur()
-            f.update(First_Name,Last_Name,Email,City,Phone_Number,roll_no)
+            f.update(First_Name ,Last_Name,Email,City,Phone_Number,roll_no)
             mb.showinfo("Info", "Le formateur selectionné est mis à jour ")  
             self.afficher_formateur() 
     

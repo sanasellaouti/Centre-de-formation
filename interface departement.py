@@ -5,11 +5,12 @@ import tkinter.ttk as ttk
 class gestionDepartement():
     def __init__(self,root):
         self.root = root
-        self.root.geometry('800x300')
+        self.root.geometry('800x800')
         self.root.title("Gestion département")
         self.id=StringVar()
         self.nom=StringVar()
         self.chefDepartement=StringVar()
+        self.aux=StringVar()
   
         
   
@@ -33,6 +34,13 @@ class gestionDepartement():
         y = Entry(self.root,textvariable = self.chefDepartement)
         y.grid(row = 3,column = 1,ipady = 6,ipadx = 40,padx = 40)
 
+        
+        #=======================chercher LABEL AND TEXTFIELD
+        x= Label(self.root,text="Chercher",anchor='w')
+        x.grid(row = 4,column = 0,pady = 20)
+        y = Entry(self.root,textvariable = self.aux)
+        y.grid(row = 4,column = 1,ipady = 6,ipadx = 40,padx = 40)
+
         #=====================Boutton ajout
         x = Button(self.root,text = "Ajouter",command = self.add,anchor='c')
         x.grid(row = 5,column = 0,ipady = 4,ipadx = 13,padx = 10,pady=30)
@@ -45,6 +53,12 @@ class gestionDepartement():
         #=====================Boutton affichage 
         x= Button(self.root,text = "Afficher",command = self.view,anchor='c')
         x.grid(row = 5,column = 1,ipady = 4,ipadx = 13,padx = 10,pady=30)
+
+        #=====================Boutton chercher
+        x= Button(self.root,text = "chercher",command = self.chercher,anchor='c')
+        x.grid(row =4,column = 4,ipady = 4,ipadx = 13,padx = 10,pady=30)
+        
+      
     #Fonction d'ajout d'un étudiant (sera appelée dérière le boutton "Ajouter"
     def add(self):
             D = departement(self.id.get(),self.nom.get(),self.chefDepartement.get())
@@ -93,6 +107,44 @@ class gestionDepartement():
         for i in rows:
             tree.insert("","end",text=str(j), values = (f'{i[0]}',f'{i[1]}',f'{i[2]}'))
             j+=1
+
+    def chercher(self):
+    
+        #==========================Show Frame
+        self.root=Tk()
+        self.root.geometry('800x400')
+        self.root.title("recherche")
+        show_frame = Frame(self.root)
+        show_frame.place(width = 1000,x = 0,y = 0 ,height = 300)
+        labl_show = Label(show_frame,text = "recherche")
+        labl_show.pack()
+        
+        #========================Main Frame
+        x= Frame(self.root,bd = 10,relief = SUNKEN)
+        x.place(width = 800,height = 300,x = 8,y = 58)
+        tree = ttk.Treeview(x,height = 200)
+        vsb = ttk.Scrollbar(x,command = tree.yview,orient = "vertical")
+        tree.configure(yscroll = vsb.set)
+        vsb.pack(side = RIGHT,fill = Y)
+        tree.pack(side = TOP,fill = X)
+        tree['columns'] = ("1","2","3")
+        tree.column('#0',width=20)
+        tree.column('1',width=20)
+        tree.column('2',width=60)
+        tree.column('3',width=60)
+        
+        tree.heading("#0",text = "num",anchor='c')
+        tree.heading("1",text = "Id",anchor='c')
+        tree.heading("2",text = "Nom",anchor='c')
+        tree.heading("3",text = "Chef département",anchor='w')
+        
+        x=departement()
+        rows=x.rechercher(self.aux.get())
+        j=1
+        for i in rows:
+            tree.insert("","end",text=str(j), values = (f'{i[0]}',f'{i[1]}',f'{i[2]}'))
+            j+=1
+ 
 
         
 root = Tk()

@@ -60,4 +60,15 @@ class departement:
         self.mycursor.execute(sql,val)
         self.db.commit()
         print(self.mycursor.rowcount,"  UPDATE FAIS AVEC SUCCES")
+        
+    def rechercher(self,other):
+        sql = "SELECT * FROM departement where chefDepartement like %s or nom like %s or id like %s  "
+        other='%'+other+'%'
+        val=(other,other,other)
+        self.mycursor.execute(sql,val)  
+        rows = self.mycursor.fetchall()  
+        return rows
+
+
+    
 

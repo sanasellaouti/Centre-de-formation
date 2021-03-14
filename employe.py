@@ -69,8 +69,22 @@ class employe:
         self.mycursor.execute(sql,val)
         self.db.commit()
         print(self.mycursor.rowcount,"UPDATE FAIS AVEC SUCCES")
+
+    def rechercher(self,other):
+        sql = "SELECT * FROM employe where prenom like %s or nom like %s or adresse like %s or poste like %s or mail like %s or cin like %s "
+        if type(other)==int:
+            other=str(other)
+        other='%'+other+'%'
+        
+        val=(other,other,other,other,other,other)
+        self.mycursor.execute(sql,val)  
+        rows = self.mycursor.fetchall()
+        for i in rows:
+            print(i)
+        return rows
         
 a=employe()
 a.supprimerEmploye(7)
+a.rechercher(15537)
 
 
